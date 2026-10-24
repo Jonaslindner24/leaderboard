@@ -3,7 +3,7 @@
 | Page | Address |
 |---|---|
 | TV dashboard | `http://192.168.4.1/` |
-| Player view | `http://192.168.4.1/<player-name>` (e.g. `/anna`, `/jan-peter`) |
+| Player view | `http://192.168.4.1/<player-name>` (e.g. `/anna`, `/peter`) |
 | Admin | `http://192.168.4.1/admin` |
 
 ## 1. Install Raspberry Pi OS
