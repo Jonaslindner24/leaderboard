@@ -1,7 +1,5 @@
 # Game Night – local leaderboard on a Raspberry Pi 3B
 
-Node.js + Express + Socket.io + SQLite. Runs completely offline in the Pi's own Wi-Fi hotspot.
-
 | Page | Address |
 |---|---|
 | TV dashboard | `http://192.168.4.1/` |
@@ -16,7 +14,7 @@ Node.js + Express + Socket.io + SQLite. Runs completely offline in the Pi's own 
 sudo apt update && sudo apt full-upgrade -y
 sudo apt install -y nodejs npm curl cage chromium
 ```
-(On older systems the package is called `chromium-browser`; adjust the path in `deploy/kiosk.service` accordingly.)
+(On older systems the package is called `chromium-browser`; adjust the path in `deploy/kiosk.service`.)
 
 ## 2. Install the project
 Copy the `gamenight` folder to `/home/pi/gamenight` (via `scp` or USB stick), then:
@@ -24,7 +22,7 @@ Copy the `gamenight` folder to `/home/pi/gamenight` (via `scp` or USB stick), th
 cd ~/gamenight
 npm install --omit=dev
 ```
-If no prebuilt binary is found for `better-sqlite3`, run `sudo apt install -y build-essential python3` and `npm install` again (Python is only needed by the build tool, not by the project).
+If no prebuilt binary is found for `better-sqlite3`, run `sudo apt install -y build-essential python3` and `npm install` again (Python is only needed by the build tool).
 
 Edit `config.json`: `ssid`, `password` (at least 8 characters), optionally `adminPin` (keeps other players out of the admin panel) and the `points` table (1st place, 2nd place, ...).
 
@@ -46,11 +44,11 @@ sudo systemctl enable kiosk.service
 sudo systemctl set-default graphical.target
 sudo reboot
 ```
-After the reboot the TV shows the dashboard in fullscreen. The server binds to port 80 without root thanks to `AmbientCapabilities`.
+After the reboot the TV shows the dashboard in fullscreen. The server binds to port 80 without root with `AmbientCapabilities`.
 
 ## 5. Running the game night
 1. Connect a phone or laptop to the hotspot and open `http://192.168.4.1/admin`.
-2. Under **Players**, add everyone. **QR codes** shows two codes per player: scan the Wi-Fi code first, then the page code. *Print* creates handouts.
+2. Under **Players**, add the Current Players. **QR codes** shows two codes per player: scan the Wi-Fi code first, then the page code. *Print* creates handouts.
 3. Under **Races**, create a race, click it and enter the places. Points are filled from the points table but can be overridden. Saving updates the TV and all phones instantly.
 
 ## Maintenance
