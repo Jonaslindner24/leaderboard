@@ -1,0 +1,22 @@
+[Unit]
+Description=Game Night TV kiosk (cage + Chromium)
+After=gamenight.service systemd-user-sessions.service getty@tty1.service
+Wants=gamenight.service
+Conflicts=getty@tty1.service
+
+[Service]
+User=pi
+PAMName=login
+TTYPath=/dev/tty1
+StandardInput=tty
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+UtmpIdentifier=tty1
+UtmpMode=user
+ExecStartPre=/bin/sh -c 'until curl -sf http://localhost/api/state >/dev/null; do sleep 1; done'
+ExecStart=/usr/bin/cage -s -- /usr/bin/chromium --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland http://localhost/
+Restart=always
+
+[Install]
+WantedBy=graphical.target

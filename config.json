@@ -1,0 +1,8 @@
+{
+  "port": 80,
+  "baseUrl": "http://192.168.4.1",
+  "ssid": "GameNight",
+  "password": "gamenight1234",
+  "adminPin": "",
+  "points": [15, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+}

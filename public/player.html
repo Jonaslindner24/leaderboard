@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Night</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body><main class="me enter" id="me"></main>
+<script src="/socket.io/socket.io.js"></script><script src="/assets/app.js"></script>
+<script>
+const slug = decodeURIComponent(location.pathname.slice(1)), me = document.getElementById('me');
+let built = false, shown = 0;
+live(({ players }) => {
+  const p = players.find(x => x.slug === slug);
+  if (!p) { built = false; me.innerHTML = '<p class="empty">This player no longer exists.</p>'; return; }
+  if (!built) {
+    me.style.setProperty('--h', hue(p.slug));
+    me.innerHTML = `<p class="hello">Your standing</p><h1></h1>
+      <div class="stats"><div class="stat" style="--i:1"><b id="rk">0</b><span>Overall rank</span></div>
+      <div class="stat" style="--i:2"><b id="pt">0</b><span>Points</span></div></div>
+      <h2>Races so far</h2><br><div id="hist"></div>`;
+    built = true;
+  }
+  me.querySelector('h1').textContent = p.name;
+  countUp(document.getElementById('rk'), p.rank);
+  countUp(document.getElementById('pt'), p.total);
+  document.getElementById('hist').innerHTML = p.history.length
+    ? `<ul class="hist">${p.history.map((h, i) => `<li style="--i:${i + 3}" class="${i >= shown && shown ? 'new' : ''}">${chip(h.place, i >= shown && shown ? 'pop' : '')}<span class="t">${esc(h.raceName)}</span><span class="p">+${h.points}</span></li>`).join('')}</ul>`
+    : '<p class="empty">No race scored yet.</p>';
+  shown = p.history.length;
+  setTimeout(() => me.classList.remove('enter'), 1500);
+});
+</script></body></html>
