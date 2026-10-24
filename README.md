@@ -1,10 +1,10 @@
 # Game Night – local leaderboard on a Raspberry Pi 3B
 
-| Page         | Address                                                         |
-| ------------ | --------------------------------------------------------------- |
-| TV dashboard | `http://192.168.4.1/`                                           |
-| Player view  | `http://192.168.4.1/<player-name>` (e.g. `/anna`, `/jan-peter`) |
-| Admin        | `http://192.168.4.1/admin`                                      |
+| Page | Address |
+|---|---|
+| TV dashboard | `http://192.168.4.1/` |
+| Player view | `http://192.168.4.1/<player-name>` (e.g. `/anna`, `/jan-peter`) |
+| Admin | `http://192.168.4.1/admin` |
 
 ## 1. Install Raspberry Pi OS
 
